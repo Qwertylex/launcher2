@@ -10,6 +10,9 @@ namespace launcher2
 {
     static class Program
     {
+
+        public static string logPath;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -22,7 +25,7 @@ namespace launcher2
             // Enable debugging output to a logfile with the date and time of launch in the current directory
             Assembly _assembly = typeof(MainForm).Assembly;
             DateTime _now = DateTime.Now;
-            string logPath = Path.GetDirectoryName(_assembly.Location) + "\\" + 
+            logPath = Path.GetDirectoryName(_assembly.Location) + "\\" + 
                 _now.Year + "-" + _now.Month + "-" + _now.Day + "_" + 
                 _now.Hour + "-" + _now.Minute + "-" + _now.Second + ".log";
 

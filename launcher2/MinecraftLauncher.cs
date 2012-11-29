@@ -6,16 +6,129 @@ using System.Diagnostics;
 using System.Net;
 using System.ComponentModel;
 using Ionic.Zip;
+using System.Runtime.Serialization;
 
 public class MinecraftLauncher {
+
+    private Form DownloadLWJGLStatusForm;
+    private BackgroundWorker DownloadLWJGLThread;
+    private string JavaLocation;
+    private string LWJGLLocation;
+
 	public MinecraftLauncher() {
         Debug.WriteLine("[MinecraftLauncher] New MinecraftLauncher created");
-        if(FindLWJGL() == "") {
-            // we don't have LWJGL, prompt to download it
+
+        JavaLocation = FindJava();
+        Debug.WriteLine("[MinecraftLauncher] Reported Java location is \"" + JavaLocation + "\"");
+        if (JavaLocation == "") {
+            MessageBox.Show("I can't find Java installed on your system. Please install Java and try again.", "launcher²", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            throw new JavaNotFoundException();
+        }
+        
+        LWJGLLocation = FindLWJGL();
+        Debug.WriteLine("[MinecraftLauncher] Reported LWJGL location is \"" + LWJGLLocation + "\"");
+        if (LWJGLLocation == "") {
             MessageBox.Show("Welcome to launcher²!\nI'm now going to download the files required for Minecraft to run.\nPress OK to continue.", "launcher²", MessageBoxButtons.OK);
             DownloadLWJGL();
         }
 	}
+
+    public string[] GetMinecraftVersions() {
+        try {
+            Assembly _assembly = Assembly.GetExecutingAssembly();
+            string _assemblydir = Path.GetDirectoryName(_assembly.Location);
+            Debug.WriteLine("[GetMinecraftVersions] Assembly location: \"" + _assemblydir + "\"");
+
+            if (!Directory.Exists(_assemblydir + "\\versions")) {
+                Debug.WriteLine("[GetMinecraftVersions] Versions directory does not exist, creating");
+                Directory.CreateDirectory(_assemblydir + "\\versions");
+            }
+
+            string[] versionDirContents = Directory.GetDirectories(_assemblydir + "\\versions");
+            string[] _collection = new string[versionDirContents.Length + 1];
+            _collection[0] = "Minecraft in %appdata%";
+
+            if (versionDirContents != null) {
+                int i = 1;
+                foreach (string dir in versionDirContents) {
+                    Debug.WriteLine("[GetMinecraftVersions] Adding \"" + dir + "\" to collection at index " + _collection.Length);
+                    _collection[i] = Path.GetFileName(dir);
+                    i++;
+                }
+                Debug.WriteLine("[GetMinecraftVersions] versionDirContents is null, not adding to collection");
+            }
+            return _collection;
+        }
+        catch (Exception ex) {
+            Debug.WriteLine("[GetMinecraftVersions] Exception encountered: " + ex.Message);
+            Debug.Indent();
+            Debug.WriteLine(ex.StackTrace);
+            Debug.Unindent();
+            throw;
+        }
+    }
+
+    public bool LaunchMinecraft(string MinecraftVersion) {
+        Assembly _assembly = Assembly.GetExecutingAssembly();
+        string _assemblydir = Path.GetDirectoryName(_assembly.Location);
+        string MinecraftJar;
+        
+        if(MinecraftVersion == "Minecraft in %appdata%")
+            MinecraftJar = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft\\bin\\minecraft.jar");
+        else MinecraftJar = _assemblydir + "\\versions\\" + MinecraftVersion + "\\minecraft.jar";
+        if (!File.Exists(MinecraftJar))
+            return false;
+
+        Process launchProcess = new Process();
+        launchProcess.StartInfo.FileName = this.JavaLocation;
+        launchProcess.StartInfo.Arguments  = "-Xms512M -Xmx1024M -Xincgc ";
+        launchProcess.StartInfo.Arguments += "-cp \"" + MinecraftJar + ";";
+        launchProcess.StartInfo.Arguments += LWJGLLocation + "jinput.jar" + ";";
+        launchProcess.StartInfo.Arguments += LWJGLLocation + "lwjgl.jar" + ";";
+        launchProcess.StartInfo.Arguments += LWJGLLocation + "lwjgl_util.jar" + "\" ";
+        launchProcess.StartInfo.Arguments += "-Dorg.lwjgl.librarypath=\"" + LWJGLLocation + "natives" + "\" ";
+        launchProcess.StartInfo.Arguments += "-Dnet.java.games.input.librarypath=\"" + LWJGLLocation + "natives" + "\" ";
+        launchProcess.StartInfo.Arguments += "net.minecraft.client.Minecraft";
+
+        Debug.WriteLine("[LaunchMinecraft] Launching java with arguments: " + launchProcess.StartInfo.Arguments);
+
+        launchProcess.Start();
+        return true;
+    }
+
+    public void OpenMinecraftDir(bool AppData) {
+        Assembly _assembly = Assembly.GetExecutingAssembly();
+        string _assemblydir = Path.GetDirectoryName(_assembly.Location);
+        string dir;
+        
+        if (AppData) dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft\\");
+        else dir = Path.Combine(_assemblydir, "versions\\");
+
+        Debug.WriteLine("[OpenMinecraftDir] Opening \"" + dir + "\"");
+        Process.Start(@dir);
+    }
+
+    public string FindJava() {
+        string[] knownLocations = new string[] {
+            Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files\\Java\\jre7\\bin\\javaw.exe",
+            Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files (x86)\\Java\\jre7\\bin\\javaw.exe",
+            // Prefer javaw.exe over java.exe if it's present, since this doesn't show the console window
+            // It should _theoretically_ always be there, but have java.exe as a fallback anyway
+            Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files\\Java\\jre7\\bin\\java.exe",
+            Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files (x86)\\Java\\jre7\\bin\\java.exe"
+        };
+
+        foreach(string path in knownLocations) {
+            Debug.WriteLine("[FindJava] Checking if Java exists at '" + path + "'...");
+            if (File.Exists(path)) {
+                Debug.WriteLine("[FindJava] Found Java, returning");
+                return path;
+            }
+        }
+
+        // if we found java already we wouldn't be here, so return failure
+        return "";
+    }
 
     /// <summary>
     /// Looks in the application directory for the LWJGL files.
@@ -54,9 +167,6 @@ public class MinecraftLauncher {
         Debug.WriteLine("[FindLWJGL] Search complete.");
         return _assemblydir + "\\lwjgl\\";
     }
-
-    private Form DownloadLWJGLStatusForm;
-    private BackgroundWorker DownloadLWJGLThread;
 
     public bool DownloadLWJGL() {
         Debug.WriteLine("[DownloadLWJGL] Creating DownloadLWJGLStatusForm form.");
@@ -184,6 +294,20 @@ public class MinecraftLauncher {
             this.DownloadLWJGLStatusForm.Controls.Find("DownloadStatusLabel", true)[0].Text = "Cancelling download...";
             this.DownloadLWJGLStatusForm.Refresh();
             while (DownloadLWJGLThread.IsBusy == true) { };
+        }
+    }
+
+    [Serializable] public class JavaNotFoundException : System.Exception {
+        public JavaNotFoundException() {
+        }
+
+        public JavaNotFoundException(string message) : base(message) {
+        }
+
+        public JavaNotFoundException(string message, Exception innerException) : base(message, innerException) {
+        }
+
+        protected JavaNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context) {
         }
     }
 }

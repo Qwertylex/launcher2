@@ -41,11 +41,77 @@ namespace launcher2
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
-            mcLauncher = new MinecraftLauncher();
+            try {
+                Debug.WriteLine("[MainForm] Creating new MinecraftLauncher instance");
+                mcLauncher = new MinecraftLauncher();
+                Debug.WriteLine("[MainForm] Populating comboMinecraftVersion");
+                comboMinecraftVersion.Items.AddRange(mcLauncher.GetMinecraftVersions());
+                comboMinecraftVersion.SelectedIndex = 0;
+            }
+            catch (MinecraftLauncher.JavaNotFoundException) {
+                Debug.WriteLine("[MainForm] JavaNotFoundException encountered, closing app.");
+                Application.Exit();
+            }
+            catch (Exception ex) {
+                Debug.WriteLine("[MainForm] Exception encountered: " + ex.Message);
+                Debug.Indent();
+                Debug.WriteLine(ex.StackTrace);
+                Debug.Unindent();
+                MessageBox.Show("Oops, something went wrong and launcher² has to close.\n\nIf you would like to help us fix what caused this crash, please send the log file located at the path below to me@akiwiguy.net :\n" + launcher2.Program.logPath, "launcher²", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
         }
 
         private void menuOptionsItemForceLWJGLUpdate_Click(object sender, EventArgs e) {
+            Debug.WriteLine("[MainForm] Forcing LWJGL update");
             mcLauncher.DownloadLWJGL();
+        }
+
+        private void btnLaunchMinecraft_Click(object sender, EventArgs e) {
+            try {
+                Debug.WriteLine("[MainForm] Starting launch of '" + (string)comboMinecraftVersion.SelectedItem + "'...");
+                mcLauncher.LaunchMinecraft((string)comboMinecraftVersion.SelectedItem);
+            }
+            catch (Exception ex) {
+                Debug.WriteLine("[MainForm] Exception encountered: " + ex.Message);
+                Debug.Indent();
+                Debug.WriteLine(ex.StackTrace);
+                Debug.Unindent();
+                MessageBox.Show("Oops, something went wrong and launcher² has to close.\n\nIf you would like to help us fix what caused this crash, please send the log file located at the path below to me@akiwiguy.net :\n" + launcher2.Program.logPath, "launcher²", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+        }
+
+        private void menuOptionsItemOpenLocalVersionsFolder_Click(object sender, EventArgs e) {
+            try {
+                Debug.WriteLine("[MainForm] Opening local version folder");
+                mcLauncher.OpenMinecraftDir(false);
+            } catch (Exception) { }
+        }
+
+        private void menuOptionsItemOpenAppData_Click(object sender, EventArgs e) {
+            try {
+                Debug.WriteLine("[MainForm] Opening %appdata%\\.minecraft");
+                mcLauncher.OpenMinecraftDir(true);
+            } catch (Exception) { }
+        }
+
+        private void menuOptionsItemReloadVersionList_Click(object sender, EventArgs e) {
+            try {
+                Debug.WriteLine("[MainForm] Version list reload requested");
+                Debug.WriteLine("[MainForm] Clearing comboMinecraftVersion");
+                comboMinecraftVersion.Items.Clear();
+                Debug.WriteLine("[MainForm] Repopulating comboMinecraftVersion");
+                comboMinecraftVersion.Items.AddRange(mcLauncher.GetMinecraftVersions());
+                comboMinecraftVersion.SelectedIndex = 0;
+            } catch (Exception ex) {
+                Debug.WriteLine("[MainForm] Exception encountered: " + ex.Message);
+                Debug.Indent();
+                Debug.WriteLine(ex.StackTrace);
+                Debug.Unindent();
+                MessageBox.Show("Oops, something went wrong and launcher² has to close.\n\nIf you would like to help us fix what caused this crash, please send the log file located at the path below to me@akiwiguy.net :\n" + launcher2.Program.logPath, "launcher²", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
         }
     }
 }

@@ -27,27 +27,42 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.menuOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuOptionsItemForceLWJGLUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOptionsItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLaunchMinecraft = new System.Windows.Forms.Button();
             this.btnOptions = new System.Windows.Forms.Button();
             this.comboMinecraftVersion = new System.Windows.Forms.ComboBox();
-            this.menuOptionsItemForceLWJGLUpdate = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuOptionsItemOpenLocalVersionsFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuOptionsItemOpenAppData = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuOptionsItemReloadVersionList = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuOptions
             // 
             this.menuOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuOptionsItemReloadVersionList,
+            this.menuOptionsItemOpenLocalVersionsFolder,
+            this.menuOptionsItemOpenAppData,
+            this.toolStripSeparator1,
             this.menuOptionsItemForceLWJGLUpdate,
             this.menuOptionsItemAbout});
             this.menuOptions.Name = "menuOptions";
-            this.menuOptions.Size = new System.Drawing.Size(183, 70);
+            this.menuOptions.Size = new System.Drawing.Size(258, 142);
+            // 
+            // menuOptionsItemForceLWJGLUpdate
+            // 
+            this.menuOptionsItemForceLWJGLUpdate.Name = "menuOptionsItemForceLWJGLUpdate";
+            this.menuOptionsItemForceLWJGLUpdate.Size = new System.Drawing.Size(257, 22);
+            this.menuOptionsItemForceLWJGLUpdate.Text = "Force LWJGL Update";
+            this.menuOptionsItemForceLWJGLUpdate.Click += new System.EventHandler(this.menuOptionsItemForceLWJGLUpdate_Click);
             // 
             // menuOptionsItemAbout
             // 
             this.menuOptionsItemAbout.Name = "menuOptionsItemAbout";
-            this.menuOptionsItemAbout.Size = new System.Drawing.Size(182, 22);
-            this.menuOptionsItemAbout.Text = "About";
+            this.menuOptionsItemAbout.Size = new System.Drawing.Size(257, 22);
+            this.menuOptionsItemAbout.Text = "About launcher²";
             this.menuOptionsItemAbout.Click += new System.EventHandler(this.menuOptionsItemAbout_Click);
             // 
             // btnLaunchMinecraft
@@ -58,6 +73,7 @@
             this.btnLaunchMinecraft.TabIndex = 3;
             this.btnLaunchMinecraft.Text = "Launch";
             this.btnLaunchMinecraft.UseVisualStyleBackColor = true;
+            this.btnLaunchMinecraft.Click += new System.EventHandler(this.btnLaunchMinecraft_Click);
             // 
             // btnOptions
             // 
@@ -72,18 +88,39 @@
             // 
             // comboMinecraftVersion
             // 
+            this.comboMinecraftVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboMinecraftVersion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboMinecraftVersion.FormattingEnabled = true;
             this.comboMinecraftVersion.Location = new System.Drawing.Point(12, 12);
             this.comboMinecraftVersion.Name = "comboMinecraftVersion";
             this.comboMinecraftVersion.Size = new System.Drawing.Size(219, 21);
             this.comboMinecraftVersion.TabIndex = 5;
             // 
-            // menuOptionsItemForceLWJGLUpdate
+            // menuOptionsItemOpenLocalVersionsFolder
             // 
-            this.menuOptionsItemForceLWJGLUpdate.Name = "menuOptionsItemForceLWJGLUpdate";
-            this.menuOptionsItemForceLWJGLUpdate.Size = new System.Drawing.Size(182, 22);
-            this.menuOptionsItemForceLWJGLUpdate.Text = "Force LWJGL Update";
-            this.menuOptionsItemForceLWJGLUpdate.Click += new System.EventHandler(this.menuOptionsItemForceLWJGLUpdate_Click);
+            this.menuOptionsItemOpenLocalVersionsFolder.Name = "menuOptionsItemOpenLocalVersionsFolder";
+            this.menuOptionsItemOpenLocalVersionsFolder.Size = new System.Drawing.Size(257, 22);
+            this.menuOptionsItemOpenLocalVersionsFolder.Text = "Open local versions folder";
+            this.menuOptionsItemOpenLocalVersionsFolder.Click += new System.EventHandler(this.menuOptionsItemOpenLocalVersionsFolder_Click);
+            // 
+            // menuOptionsItemOpenAppData
+            // 
+            this.menuOptionsItemOpenAppData.Name = "menuOptionsItemOpenAppData";
+            this.menuOptionsItemOpenAppData.Size = new System.Drawing.Size(257, 22);
+            this.menuOptionsItemOpenAppData.Text = "Open Minecraft %appdata% folder";
+            this.menuOptionsItemOpenAppData.Click += new System.EventHandler(this.menuOptionsItemOpenAppData_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(254, 6);
+            // 
+            // menuOptionsItemReloadVersionList
+            // 
+            this.menuOptionsItemReloadVersionList.Name = "menuOptionsItemReloadVersionList";
+            this.menuOptionsItemReloadVersionList.Size = new System.Drawing.Size(257, 22);
+            this.menuOptionsItemReloadVersionList.Text = "Reload versions list";
+            this.menuOptionsItemReloadVersionList.Click += new System.EventHandler(this.menuOptionsItemReloadVersionList_Click);
             // 
             // MainForm
             // 
@@ -112,6 +149,10 @@
         private System.Windows.Forms.ToolStripMenuItem menuOptionsItemAbout;
         private System.Windows.Forms.ComboBox comboMinecraftVersion;
         private System.Windows.Forms.ToolStripMenuItem menuOptionsItemForceLWJGLUpdate;
+        private System.Windows.Forms.ToolStripMenuItem menuOptionsItemOpenLocalVersionsFolder;
+        private System.Windows.Forms.ToolStripMenuItem menuOptionsItemOpenAppData;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem menuOptionsItemReloadVersionList;
 
     }
 }
