@@ -111,8 +111,8 @@ public class MinecraftLauncher {
 
     public string FindJava() {
         string[] knownLocations = new string[] {
-            //Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files\\Java\\jre7\\bin\\javaw.exe",
-            //Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files (x86)\\Java\\jre7\\bin\\javaw.exe",
+            Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files\\Java\\jre7\\bin\\javaw.exe",
+            Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files (x86)\\Java\\jre7\\bin\\javaw.exe",
             // Prefer javaw.exe over java.exe if it's present, since this doesn't show the console window
             // It should _theoretically_ always be there, but have java.exe as a fallback anyway
             Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files\\Java\\jre7\\bin\\java.exe",
