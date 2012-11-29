@@ -12,11 +12,8 @@ public class MinecraftLauncher {
         Debug.WriteLine("[MinecraftLauncher] New MinecraftLauncher created");
         if(FindLWJGL() == "") {
             // we don't have LWJGL, prompt to download it
-            if (MessageBox.Show("LWJGL was not found, would you like to download it?\nThis is required for Minecraft to run.", "launcher²", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
-                // user hit yes, download LWJGL
-                if (!DownloadLWJGL())
-                    Application.Exit();
-            }
+            MessageBox.Show("Welcome to launcher²!\nI'm now going to download the files required for Minecraft to run.\nPress OK to continue.", "launcher²", MessageBoxButtons.OK);
+            DownloadLWJGL();
         }
 	}
 
@@ -82,9 +79,10 @@ public class MinecraftLauncher {
         DownloadLWJGLStatusForm.ResumeLayout(false);
         DownloadLWJGLStatusForm.Text = "launcher²";
         DownloadLWJGLStatusForm.Icon = global::launcher2.Properties.Resources.l2_ico;
-        DownloadLWJGLStatusForm.FormClosing +=new FormClosingEventHandler(DownloadLWJGLStatusForm_FormClosing);
+        DownloadLWJGLStatusForm.FormClosing += new FormClosingEventHandler(DownloadLWJGLStatusForm_FormClosing);
         DownloadLWJGLStatusForm.Refresh();
         DownloadLWJGLStatusForm.Show();
+        DownloadLWJGLStatusForm.Activate();
 
         DownloadLWJGLThread = new BackgroundWorker();
         DownloadLWJGLThread.WorkerReportsProgress = true;
@@ -164,6 +162,7 @@ public class MinecraftLauncher {
 
     private void DownloadLWJGLThread_ProgressChanged(object sender, ProgressChangedEventArgs e) {
         Debug.WriteLine("[DownloadLWJGLThread_ProgressChanged] " + e.UserState);
+        this.DownloadLWJGLStatusForm.Activate();
         this.DownloadLWJGLStatusForm.Controls.Find("DownloadStatusLabel", true)[0].Text = "Downloading LWJGL...\n" + e.UserState;
     }
 
