@@ -20,6 +20,7 @@ namespace launcher2
         }
 
         private MinecraftLauncher mcLauncher;
+        private MinecraftAuthentication AuthData;
 
         private void btnOptions_Click(object sender, EventArgs e) {
             Debug.WriteLine("[MainForm] Options button clicked.");
@@ -47,6 +48,23 @@ namespace launcher2
                 Debug.WriteLine("[MainForm] Populating comboMinecraftVersion");
                 comboMinecraftVersion.Items.AddRange(mcLauncher.GetMinecraftVersions());
                 comboMinecraftVersion.SelectedIndex = 0;
+
+                Debug.WriteLine("[MainForm] Checking for authentication data");
+                if (Properties.Settings.Default.MinecraftUsername == "") {
+                    Debug.WriteLine("[MainForm] Creating new AuthDetailForm.");
+                    AuthDetailForm authForm = new AuthDetailForm();
+                    Debug.WriteLine("[MainForm] Showing AuthDetailForm.");
+                    authForm.ShowDialog();
+                    Debug.WriteLine("[MainForm] Disposing of created AuthDetailForm.");
+                    authForm.Dispose();
+                }
+
+                Debug.WriteLine("[MainForm] Attempting to authenticate with minecraft.net");
+                AuthData = new MinecraftAuthentication(Properties.Settings.Default.MinecraftUsername, Properties.Settings.Default.MinecraftPassword);
+                if (AuthData.DoAuthentication() != MinecraftAuthentication.AuthenticationStatus.Success) {
+                    MessageBox.Show("There was an error logging you into minecraft.net. Please check your login details.");
+                }
+                menuOptionsItemAuthDetails.Text = "Authenticated as " + AuthData.MinecraftUsername;
             }
             catch (MinecraftLauncher.JavaNotFoundException) {
                 Debug.WriteLine("[MainForm] JavaNotFoundException encountered, closing app.");
@@ -70,7 +88,7 @@ namespace launcher2
         private void btnLaunchMinecraft_Click(object sender, EventArgs e) {
             try {
                 Debug.WriteLine("[MainForm] Starting launch of '" + (string)comboMinecraftVersion.SelectedItem + "'...");
-                mcLauncher.LaunchMinecraft((string)comboMinecraftVersion.SelectedItem);
+                mcLauncher.LaunchMinecraft((string)comboMinecraftVersion.SelectedItem, AuthData);
             }
             catch (Exception ex) {
                 Debug.WriteLine("[MainForm] Exception encountered: " + ex.Message);
@@ -112,6 +130,23 @@ namespace launcher2
                 MessageBox.Show("Oops, something went wrong and launcher² has to close.\n\nIf you would like to help us fix what caused this crash, please send the log file located at the path below to me@akiwiguy.net :\n" + launcher2.Program.logPath, "launcher²", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
+        }
+
+        private void menuOptionsItemChangeAuthDetails_Click(object sender, EventArgs e) {
+            Debug.WriteLine("[MainForm] Creating new AuthDetailForm.");
+            AuthDetailForm authForm = new AuthDetailForm();
+            Debug.WriteLine("[MainForm] Showing AuthDetailForm.");
+            authForm.ShowDialog();
+            Debug.WriteLine("[MainForm] Disposing of created AuthDetailForm.");
+            authForm.Dispose();
+
+            Debug.WriteLine("[MainForm] Attempting to authenticate with minecraft.net");
+            AuthData.MinecraftUsername = Properties.Settings.Default.MinecraftUsername;
+            AuthData.MinecraftPassword = Properties.Settings.Default.MinecraftPassword;
+            if (AuthData.DoAuthentication() != MinecraftAuthentication.AuthenticationStatus.Success) {
+                MessageBox.Show("There was an error logging you into minecraft.net. Please check your login details.");
+            }
+            menuOptionsItemAuthDetails.Text = "Authenticated as " + AuthData.MinecraftUsername;
         }
     }
 }

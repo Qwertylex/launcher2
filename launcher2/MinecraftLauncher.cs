@@ -68,7 +68,7 @@ public class MinecraftLauncher {
         }
     }
 
-    public bool LaunchMinecraft(string MinecraftVersion) {
+    public bool LaunchMinecraft(string MinecraftVersion, MinecraftAuthentication MinecraftAuthData) {
         Assembly _assembly = Assembly.GetExecutingAssembly();
         string _assemblydir = Path.GetDirectoryName(_assembly.Location);
         string MinecraftJar;
@@ -88,7 +88,8 @@ public class MinecraftLauncher {
         launchProcess.StartInfo.Arguments += LWJGLLocation + "lwjgl_util.jar" + "\" ";
         launchProcess.StartInfo.Arguments += "-Dorg.lwjgl.librarypath=\"" + LWJGLLocation + "natives" + "\" ";
         launchProcess.StartInfo.Arguments += "-Dnet.java.games.input.librarypath=\"" + LWJGLLocation + "natives" + "\" ";
-        launchProcess.StartInfo.Arguments += "net.minecraft.client.Minecraft";
+        launchProcess.StartInfo.Arguments += "net.minecraft.client.Minecraft ";
+        launchProcess.StartInfo.Arguments += MinecraftAuthData.MinecraftAuthToken;
 
         Debug.WriteLine("[LaunchMinecraft] Launching java with arguments: " + launchProcess.StartInfo.Arguments);
 
@@ -110,8 +111,8 @@ public class MinecraftLauncher {
 
     public string FindJava() {
         string[] knownLocations = new string[] {
-            Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files\\Java\\jre7\\bin\\javaw.exe",
-            Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files (x86)\\Java\\jre7\\bin\\javaw.exe",
+            //Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files\\Java\\jre7\\bin\\javaw.exe",
+            //Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files (x86)\\Java\\jre7\\bin\\javaw.exe",
             // Prefer javaw.exe over java.exe if it's present, since this doesn't show the console window
             // It should _theoretically_ always be there, but have java.exe as a fallback anyway
             Environment.GetEnvironmentVariable("SystemDrive") + "\\Program Files\\Java\\jre7\\bin\\java.exe",
