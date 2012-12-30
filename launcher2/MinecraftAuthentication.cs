@@ -50,7 +50,7 @@ public class MinecraftAuthentication {
 
             this.BadLogin = MinecraftAuthString == "Bad login";
             this.PremiumUser = MinecraftAuthString != "User not premium";
-            this.MojangAccount = MinecraftAuthString.Contains("use e-mail as username")
+            this.MojangAccount = MinecraftAuthString.Contains("use e-mail as username");
 
             if (this.BadLogin) {
                 Debug.WriteLine("[MinecraftAuthentication] Bad login, continuing with unauthenticated username");
