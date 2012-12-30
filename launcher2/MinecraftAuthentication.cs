@@ -41,7 +41,8 @@ public class MinecraftAuthentication {
             AuthURI += "&version=";
             AuthURI += Uri.EscapeUriString(MinecraftVersion.ToString());
 
-            Debug.WriteLine("[MinecraftAuthentication] Requesting URI: \"" + AuthURI + "\"");
+            string AuthURIForLog = AuthURI.Replace(Uri.EscapeUriString(MinecraftPassword), new String('#', MinecraftPassword.Length));
+            Debug.WriteLine("[MinecraftAuthentication] Requesting URI: \"" + AuthURIForLog + "\"");
 
             WebClient webClient = new WebClient();
             string MinecraftAuthString = webClient.DownloadString(AuthURI);
