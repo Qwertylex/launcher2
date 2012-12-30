@@ -16,12 +16,12 @@ goto :eof
 
 :debug
     echo [::] Building debug
-    C:\Windows\Microsoft.NET\Framework\v3.5\msbuild.exe /target:Build launcher2.msbuild
+    C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe launcher2.sln /t:Rebuild /p:Configuration=Debug
     goto :eof
 
 :release
     echo [::] Building release
-    C:\Windows\Microsoft.NET\Framework\v3.5\msbuild.exe /target:Build launcher2-release.msbuild
+    C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe launcher2.sln /t:Rebuild /p:Configuration=Release
     echo [::] Packaging release
     cd launcher2\bin\Release
     "C:\Program Files\7-Zip\7z.exe" a -y ..\..\..\launcher2-release.7z *.exe *.dll
