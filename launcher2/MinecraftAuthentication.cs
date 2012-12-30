@@ -11,7 +11,7 @@ public class MinecraftAuthentication {
     public string MinecraftAuthToken { get; private set; }
     public bool PremiumUser { get; private set; }
     public bool BadLogin { get; private set; }
-    public bool AccountMigrated { get; private set; }
+    public bool MojangAccount { get; private set; }
     public bool AuthenticationAttempted { get; private set; }
     public int MinecraftVersion { get; set; }
 
@@ -25,7 +25,7 @@ public class MinecraftAuthentication {
     public static class AuthenticationStatus {
         public static int BadLogin = 1;
         public static int NotPremium = 3;
-        public static int AccountMigrated = 5;
+        public static int MojangAccount = 5;
         public static int Success = 7;
     }
 
@@ -50,7 +50,7 @@ public class MinecraftAuthentication {
 
             this.BadLogin = MinecraftAuthString == "Bad login";
             this.PremiumUser = MinecraftAuthString != "User not premium";
-            this.AccountMigrated = MinecraftAuthString == "Account migrated, use e-mail as username.";
+            this.MojangAccount = MinecraftAuthString.Contains("use e-mail as username")
 
             if (this.BadLogin) {
                 Debug.WriteLine("[MinecraftAuthentication] Bad login, continuing with unauthenticated username");
@@ -62,11 +62,11 @@ public class MinecraftAuthentication {
                 this.MinecraftAuthToken = this.MinecraftUsername;
                 this.AuthenticationAttempted = true;
                 return AuthenticationStatus.NotPremium;
-            } else if (this.AccountMigrated) {
-                Debug.WriteLine("[MinecraftAuthentication] Account migrated and username used for login, continuing with unauthenticated username");
+            } else if (this.MojangAccount) {
+                Debug.WriteLine("[MinecraftAuthentication] Mojang account and username used for login, continuing with unauthenticated username");
                 this.MinecraftAuthToken = this.MinecraftUsername;
                 this.AuthenticationAttempted = true;
-                return AuthenticationStatus.AccountMigrated;
+                return AuthenticationStatus.MojangAccount;
             } else {
                 Debug.WriteLine("[MinecraftAuthentication] User authenticated successfully");
                 string[] AuthComponents = MinecraftAuthString.Split(new string[] { ":" }, StringSplitOptions.None);
