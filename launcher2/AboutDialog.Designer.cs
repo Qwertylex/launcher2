@@ -63,8 +63,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(272, 52);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Originally crafted by akiwiguy, though there may be more\r\n\r\nAvailable under the S" +
-                "implified BSD Licence, see \r\n http://git.io/launcher2 for details.";
+            this.label2.Text = "Originally crafted by akiwiguy, though there may be more\r\n\r\nAvailable under the Simplified BSD Licence, see \r\n http://github.com/aki--aki/launcher2 for details.";
             // 
             // btnClose
             // 
