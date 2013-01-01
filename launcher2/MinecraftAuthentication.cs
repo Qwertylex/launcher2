@@ -27,10 +27,16 @@ public class MinecraftAuthentication {
         public static int NotPremium = 3;
         public static int MojangAccount = 5;
         public static int Success = 7;
+        public static int Failure = 255;
     }
 
     public int DoAuthentication() {
         try {
+            if (this.MinecraftUsername == "" || this.MinecraftUsername == null) {
+                Debug.WriteLine("[MinecraftAuthentication] Aborting authentication, no username provided");
+                return AuthenticationStatus.Failure;
+            }
+
             Debug.WriteLine("[MinecraftAuthentication] Starting authentication of user " + this.MinecraftUsername);
 
             string AuthURI;
