@@ -1,10 +1,13 @@
 @echo off
 
+if not defined NETFRAMEWORK set NETFRAMEWORK=v3.5
 if not defined BUILDCONFIG set BUILDCONFIG=Release
 if not defined BUILDPLATFORM set BUILDPLATFORM=x86
 
 if "%~1"=="" ( 
-    goto :all
+    call :interactive
+    call :all
+    pause
 ) else (
     for %%A in (%*) do (
         set BUILDFUNC=%%A
@@ -28,18 +31,18 @@ goto :eof
 :build
     echo [::] Building launcher2 for %BUILDCONFIG% platform %BUILDPLATFORM%
     call :buildid
-    C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe launcher2.sln /t:Rebuild /p:Configuration="%BUILDCONFIG%" /p:Platform="%BUILDPLATFORM%"
+    C:\Windows\Microsoft.NET\Framework\%NETFRAMEWORK%\msbuild.exe launcher2.sln /t:Rebuild /p:Configuration="%BUILDCONFIG%" /p:Platform="%BUILDPLATFORM%"
     goto :eof
 
 :package
     echo [::] Creating package
-    cd launcher2\bin\Release\%BUILDPLATFORM%
+    cd launcher2\bin\%BUILDCONFIG%\%BUILDPLATFORM%
     "C:\Program Files\7-Zip\7z.exe" a -y ..\..\..\launcher2-release.7z *.exe *.dll ..\..\..\..\buildinfo.txt
     cd ..\..\..\..
     goto :eof
 
 :buildid
-    if exist ".git/refs/heads/master" ( set /p GITCOMMIT=<".git/refs/heads/master" ) else ( set /p GITCOMMIT="unknown" )
+    if exist ".git/refs/heads/master" ( set /p GITCOMMIT=<".git/refs/heads/master" ) else ( set GITCOMMIT=unknown )
     for /f "tokens=2,3,4 delims=[.]" %%a in ('ver') do set WINVER=%%a.%%b.%%c
     echo launcher2 build information > buildinfo.txt
     echo --------------------------- >> buildinfo.txt
@@ -52,3 +55,8 @@ goto :eof
     echo Build platform: %BUILDPLATFORM% >> buildinfo.txt
     echo --------------------------- >> buildinfo.txt
     goto :eof
+
+:interactive
+    set /p NETFRAMEWORK=".NET Framework version to use [v3.5]: "
+    set /p BUILDCONFIG="Configuration to build [Release]: "
+    set /p BUILDPLATFORM="Platform to build for [x86]: "
