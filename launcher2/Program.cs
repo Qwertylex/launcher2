@@ -6,10 +6,8 @@ using System.Reflection;
 using System.IO;
 using System.Diagnostics;
 
-namespace launcher2
-{
-    static class Program
-    {
+namespace launcher2 {
+    static class Program {
 
         public static string logPath;
 
@@ -17,8 +15,7 @@ namespace launcher2
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
-        {
+        static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
            
