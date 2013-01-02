@@ -44,6 +44,7 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.editUserConfigurationFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboMinecraftVersion = new System.Windows.Forms.ComboBox();
+            this.downloadMinecraftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOptions.SuspendLayout();
             this.menuAdvancedOptions.SuspendLayout();
             this.SuspendLayout();
@@ -51,6 +52,7 @@
             // menuOptions
             // 
             this.menuOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.downloadMinecraftToolStripMenuItem,
             this.menuOptionsItemReloadVersionList,
             this.toolStripSeparator1,
             this.menuOptionsItemOpenLocalVersionsFolder,
@@ -62,7 +64,7 @@
             this.menuOptionsItemForceLWJGLUpdate,
             this.menuOptionsItemAbout});
             this.menuOptions.Name = "menuOptions";
-            this.menuOptions.Size = new System.Drawing.Size(258, 176);
+            this.menuOptions.Size = new System.Drawing.Size(258, 220);
             // 
             // menuOptionsItemReloadVersionList
             // 
@@ -157,7 +159,7 @@
             this.toolStripSeparator4,
             this.editUserConfigurationFileToolStripMenuItem});
             this.menuAdvancedOptions.Name = "menuAdvancedOptions";
-            this.menuAdvancedOptions.Size = new System.Drawing.Size(214, 76);
+            this.menuAdvancedOptions.Size = new System.Drawing.Size(214, 54);
             // 
             // advancedOptionsToolStripMenuItem
             // 
@@ -187,6 +189,13 @@
             this.comboMinecraftVersion.Name = "comboMinecraftVersion";
             this.comboMinecraftVersion.Size = new System.Drawing.Size(219, 21);
             this.comboMinecraftVersion.TabIndex = 5;
+            // 
+            // downloadMinecraftToolStripMenuItem
+            // 
+            this.downloadMinecraftToolStripMenuItem.Name = "downloadMinecraftToolStripMenuItem";
+            this.downloadMinecraftToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.downloadMinecraftToolStripMenuItem.Text = "Download Minecraft";
+            this.downloadMinecraftToolStripMenuItem.Click += new System.EventHandler(this.downloadMinecraftToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -228,6 +237,7 @@
         private System.Windows.Forms.ToolStripMenuItem advancedOptionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem editUserConfigurationFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadMinecraftToolStripMenuItem;
 
     }
 }

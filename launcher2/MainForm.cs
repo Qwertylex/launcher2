@@ -161,5 +161,16 @@ namespace launcher2
             openConfig.StartInfo.Arguments = ConfigFile;
             openConfig.Start();
         }
+
+        private void downloadMinecraftToolStripMenuItem_Click(object sender, EventArgs e) {
+            MinecraftUpdater mcUpdate = new MinecraftUpdater();
+            List<string> availVersions = mcUpdate.GetAvailableVersions();
+            // for debugging
+            string tempString = "";
+            foreach(string line in availVersions) {
+                tempString += line + ", ";
+            }
+            MessageBox.Show(tempString);
+        }
     }
 }

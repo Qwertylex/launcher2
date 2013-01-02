@@ -93,6 +93,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MinecraftAuthentication.cs" />
+    <Compile Include="MinecraftUpdater.cs" />
     <Compile Include="MinecraftLauncher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
