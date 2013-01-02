@@ -81,7 +81,7 @@ public class MinecraftLauncher {
 
         Process launchProcess = new Process();
         launchProcess.StartInfo.FileName = this.JavaLocation;
-        launchProcess.StartInfo.Arguments  = "-Xms512M -Xmx1024M -Xincgc ";
+        launchProcess.StartInfo.Arguments = "-Xms" + launcher2.Properties.Settings.Default.JavaMinHeap + " -Xmx" + launcher2.Properties.Settings.Default.JavaMaxHeap + " -Xincgc ";
         launchProcess.StartInfo.Arguments += "-cp \"" + MinecraftJar + ";";
         launchProcess.StartInfo.Arguments += LWJGLLocation + "jinput.jar" + ";";
         launchProcess.StartInfo.Arguments += LWJGLLocation + "lwjgl.jar" + ";";

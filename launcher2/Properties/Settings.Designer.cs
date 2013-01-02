@@ -46,5 +46,29 @@ namespace launcher2.Properties {
                 this["MinecraftPassword"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("512M")]
+        public string JavaMinHeap {
+            get {
+                return ((string)(this["JavaMinHeap"]));
+            }
+            set {
+                this["JavaMinHeap"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("512M")]
+        public string JavaMaxHeap {
+            get {
+                return ((string)(this["JavaMaxHeap"]));
+            }
+            set {
+                this["JavaMaxHeap"] = value;
+            }
+        }
     }
 }

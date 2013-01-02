@@ -8,5 +8,11 @@
     <Setting Name="MinecraftPassword" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="JavaMinHeap" Type="System.String" Scope="User">
+      <Value Profile="(Default)">512M</Value>
+    </Setting>
+    <Setting Name="JavaMaxHeap" Type="System.String" Scope="User">
+      <Value Profile="(Default)">512M</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
