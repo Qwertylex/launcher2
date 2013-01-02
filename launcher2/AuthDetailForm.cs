@@ -23,11 +23,15 @@ namespace launcher2 {
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
-            Properties.Settings.Default.MinecraftUsername = txtUsername.Text;
-            Properties.Settings.Default.MinecraftPassword = txtPassword.Text;
-            Properties.Settings.Default.Save();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (txtUsername.Text == "") {
+                MessageBox.Show("You must enter a username.");
+            } else {
+                Properties.Settings.Default.MinecraftUsername = txtUsername.Text;
+                Properties.Settings.Default.MinecraftPassword = txtPassword.Text;
+                Properties.Settings.Default.Save();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
     }
 }
