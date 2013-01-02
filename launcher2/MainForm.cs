@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Configuration;
 
 
 namespace launcher2
@@ -147,6 +148,18 @@ namespace launcher2
                 MessageBox.Show("There was an error logging you into minecraft.net. Please check your login details.");
             }
             menuOptionsItemAuthDetails.Text = "Authenticated as " + AuthData.MinecraftUsername;
+        }
+
+        private void editUserConfigurationFileToolStripMenuItem_Click(object sender, EventArgs e) {
+            Debug.WriteLine("[MainForm] Displaying configuration edit alert");
+            MessageBox.Show("After you have edited the configuration file, please restart launcher2.");
+            Debug.WriteLine("[MainForm] Opening Notepad to config file");
+            string ConfigFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
+            Debug.WriteLine("[MainForm] Config file path: " + ConfigFile);
+            Process openConfig = new Process();
+            openConfig.StartInfo.FileName = Environment.GetEnvironmentVariable("SystemRoot") + "\\notepad.exe";
+            openConfig.StartInfo.Arguments = ConfigFile;
+            openConfig.Start();
         }
     }
 }

@@ -28,19 +28,24 @@
             this.components = new System.ComponentModel.Container();
             this.menuOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuOptionsItemReloadVersionList = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuOptionsItemOpenLocalVersionsFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOptionsItemOpenAppData = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuOptionsItemAuthDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuOptionsItemChangeAuthDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuOptionsItemForceLWJGLUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOptionsItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLaunchMinecraft = new System.Windows.Forms.Button();
             this.btnOptions = new System.Windows.Forms.Button();
+            this.menuAdvancedOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.advancedOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.editUserConfigurationFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboMinecraftVersion = new System.Windows.Forms.ComboBox();
-            this.menuOptionsItemChangeAuthDetails = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuOptionsItemAuthDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOptions.SuspendLayout();
+            this.menuAdvancedOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuOptions
@@ -57,7 +62,7 @@
             this.menuOptionsItemForceLWJGLUpdate,
             this.menuOptionsItemAbout});
             this.menuOptions.Name = "menuOptions";
-            this.menuOptions.Size = new System.Drawing.Size(258, 198);
+            this.menuOptions.Size = new System.Drawing.Size(258, 176);
             // 
             // menuOptionsItemReloadVersionList
             // 
@@ -65,6 +70,11 @@
             this.menuOptionsItemReloadVersionList.Size = new System.Drawing.Size(257, 22);
             this.menuOptionsItemReloadVersionList.Text = "Reload versions list";
             this.menuOptionsItemReloadVersionList.Click += new System.EventHandler(this.menuOptionsItemReloadVersionList_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(254, 6);
             // 
             // menuOptionsItemOpenLocalVersionsFolder
             // 
@@ -80,10 +90,29 @@
             this.menuOptionsItemOpenAppData.Text = "Open Minecraft %appdata% folder";
             this.menuOptionsItemOpenAppData.Click += new System.EventHandler(this.menuOptionsItemOpenAppData_Click);
             // 
-            // toolStripSeparator1
+            // toolStripSeparator3
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(254, 6);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(254, 6);
+            // 
+            // menuOptionsItemAuthDetails
+            // 
+            this.menuOptionsItemAuthDetails.Enabled = false;
+            this.menuOptionsItemAuthDetails.Name = "menuOptionsItemAuthDetails";
+            this.menuOptionsItemAuthDetails.Size = new System.Drawing.Size(257, 22);
+            this.menuOptionsItemAuthDetails.Text = "Authenticated as <username>";
+            // 
+            // menuOptionsItemChangeAuthDetails
+            // 
+            this.menuOptionsItemChangeAuthDetails.Name = "menuOptionsItemChangeAuthDetails";
+            this.menuOptionsItemChangeAuthDetails.Size = new System.Drawing.Size(257, 22);
+            this.menuOptionsItemChangeAuthDetails.Text = "Change authentication details";
+            this.menuOptionsItemChangeAuthDetails.Click += new System.EventHandler(this.menuOptionsItemChangeAuthDetails_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(254, 6);
             // 
             // menuOptionsItemForceLWJGLUpdate
             // 
@@ -111,6 +140,7 @@
             // 
             // btnOptions
             // 
+            this.btnOptions.ContextMenuStrip = this.menuAdvancedOptions;
             this.btnOptions.Image = global::launcher2.Properties.Resources.cog;
             this.btnOptions.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnOptions.Location = new System.Drawing.Point(207, 39);
@@ -119,6 +149,34 @@
             this.btnOptions.TabIndex = 4;
             this.btnOptions.UseVisualStyleBackColor = true;
             this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
+            // 
+            // menuAdvancedOptions
+            // 
+            this.menuAdvancedOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.advancedOptionsToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.editUserConfigurationFileToolStripMenuItem});
+            this.menuAdvancedOptions.Name = "menuAdvancedOptions";
+            this.menuAdvancedOptions.Size = new System.Drawing.Size(214, 76);
+            // 
+            // advancedOptionsToolStripMenuItem
+            // 
+            this.advancedOptionsToolStripMenuItem.Enabled = false;
+            this.advancedOptionsToolStripMenuItem.Name = "advancedOptionsToolStripMenuItem";
+            this.advancedOptionsToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.advancedOptionsToolStripMenuItem.Text = "Advanced Options";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(210, 6);
+            // 
+            // editUserConfigurationFileToolStripMenuItem
+            // 
+            this.editUserConfigurationFileToolStripMenuItem.Name = "editUserConfigurationFileToolStripMenuItem";
+            this.editUserConfigurationFileToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.editUserConfigurationFileToolStripMenuItem.Text = "Edit user configuration file";
+            this.editUserConfigurationFileToolStripMenuItem.Click += new System.EventHandler(this.editUserConfigurationFileToolStripMenuItem_Click);
             // 
             // comboMinecraftVersion
             // 
@@ -129,30 +187,6 @@
             this.comboMinecraftVersion.Name = "comboMinecraftVersion";
             this.comboMinecraftVersion.Size = new System.Drawing.Size(219, 21);
             this.comboMinecraftVersion.TabIndex = 5;
-            // 
-            // menuOptionsItemChangeAuthDetails
-            // 
-            this.menuOptionsItemChangeAuthDetails.Name = "menuOptionsItemChangeAuthDetails";
-            this.menuOptionsItemChangeAuthDetails.Size = new System.Drawing.Size(257, 22);
-            this.menuOptionsItemChangeAuthDetails.Text = "Change authentication details";
-            this.menuOptionsItemChangeAuthDetails.Click += new System.EventHandler(this.menuOptionsItemChangeAuthDetails_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(254, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(254, 6);
-            // 
-            // menuOptionsItemAuthDetails
-            // 
-            this.menuOptionsItemAuthDetails.Enabled = false;
-            this.menuOptionsItemAuthDetails.Name = "menuOptionsItemAuthDetails";
-            this.menuOptionsItemAuthDetails.Size = new System.Drawing.Size(257, 22);
-            this.menuOptionsItemAuthDetails.Text = "Authenticated as <username>";
             // 
             // MainForm
             // 
@@ -169,6 +203,7 @@
             this.Text = "launcher²";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuOptions.ResumeLayout(false);
+            this.menuAdvancedOptions.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -189,6 +224,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem menuOptionsItemAuthDetails;
+        private System.Windows.Forms.ContextMenuStrip menuAdvancedOptions;
+        private System.Windows.Forms.ToolStripMenuItem advancedOptionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem editUserConfigurationFileToolStripMenuItem;
 
     }
 }

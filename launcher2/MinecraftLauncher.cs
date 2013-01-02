@@ -79,6 +79,9 @@ public class MinecraftLauncher {
         if (!File.Exists(MinecraftJar))
             return false;
 
+        Debug.WriteLine("[MinecraftLauncher] Reloading configuration");
+        System.Configuration.ConfigurationManager.RefreshSection("userSettings");
+
         Process launchProcess = new Process();
         launchProcess.StartInfo.FileName = this.JavaLocation;
         launchProcess.StartInfo.Arguments = "-Xms" + launcher2.Properties.Settings.Default.JavaMinHeap + " -Xmx" + launcher2.Properties.Settings.Default.JavaMaxHeap + " -Xincgc ";
