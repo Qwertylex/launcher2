@@ -39,7 +39,7 @@ goto :eof
     goto :eof
 
 :buildid
-    if exist ".git/refs/heads/master" ( set /p GITCOMMIT=<".git/refs/heads/master" ) else ( set /p GITCOMMIT="unknown" )
+    if exist ".git/refs/heads/master" ( set /p GITCOMMIT=<".git/refs/heads/master" ) else ( set /p GITCOMMIT=unknown )
     for /f "tokens=2,3,4 delims=[.]" %%a in ('ver') do set WINVER=%%a.%%b.%%c
     echo launcher2 build information > buildinfo.txt
     echo --------------------------- >> buildinfo.txt
