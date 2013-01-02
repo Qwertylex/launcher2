@@ -32,8 +32,8 @@ public class MinecraftAuthentication {
 
     public int DoAuthentication() {
         try {
-            if (this.MinecraftUsername == "" || this.MinecraftUsername == null) {
-                Debug.WriteLine("[MinecraftAuthentication] Aborting authentication, no username provided");
+            if (this.MinecraftUsername == "" || this.MinecraftUsername == null || this.MinecraftPassword == "" || this.MinecraftPassword == null) {
+                Debug.WriteLine("[MinecraftAuthentication] Aborting authentication, no username and/or password provided");
                 return AuthenticationStatus.Failure;
             }
 
