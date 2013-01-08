@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 
 public class MinecraftUpdater {
-	public MinecraftUpdater() {
+    public MinecraftUpdater() {
 		Debug.WriteLine("[MinecraftUpdater] New MinecraftUpdater created");
     }
 
