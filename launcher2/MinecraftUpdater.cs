@@ -8,7 +8,7 @@ using System.IO;
 
 public class MinecraftUpdater {
     public MinecraftUpdater() {
-		Debug.WriteLine("[MinecraftUpdater] New MinecraftUpdater created");
+        Debug.WriteLine("[MinecraftUpdater] New MinecraftUpdater created");
     }
 
     public List<string> GetAvailableVersions() {
