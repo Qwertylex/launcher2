@@ -13,7 +13,7 @@ public class MinecraftUpdater {
         but if i end up caching the XML from assets.minecraft.net, here's where to do it.
         */
 
-		Debug.WriteLine("[MinecraftUpdater] New MinecraftUpdater created");
+        Debug.WriteLine("[MinecraftUpdater] New MinecraftUpdater created");
     }
 
     /*
