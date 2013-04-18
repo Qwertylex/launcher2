@@ -36,7 +36,7 @@ goto :eof
 
 :package
     echo [::] Creating package
-    cd launcher2\bin\%BUILDCONFIG%\%BUILDPLATFORM%
+    cd launcher2\bin\%BUILDPLATFORM%\%BUILDCONFIG%
     "C:\Program Files (x86)\7-Zip\7z.exe" a -y ..\..\..\..\launcher2-release.7z *.exe *.dll ..\..\..\..\buildinfo.txt
     cd ..\..\..\..
     goto :eof
